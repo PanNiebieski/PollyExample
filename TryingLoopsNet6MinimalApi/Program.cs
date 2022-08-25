@@ -1,16 +1,13 @@
-﻿using Polly;
-
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpClient("DaysApi", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7010/");
+    client.BaseAddress = new Uri("https://localhost:7136/");
     client.DefaultRequestHeaders.Add("Accept", "application/json");
-}).AddPolicyHandler(Policy.HandleResult<HttpResponseMessage>
- (r => !r.IsSuccessStatusCode).RetryAsync(3));
+});
 
 var app = builder.Build();
 
@@ -45,13 +42,23 @@ app.MapGet("/Day/{id}", async (int id, IHttpClientFactory httpClientFactory) =>
 
     string requestEndpoint = $"todolist/{id}";
 
-    HttpResponseMessage response = await httpClient.GetAsync(requestEndpoint);
-
-    if (response.IsSuccessStatusCode)
+    for (int i = 1; i < 5; i++)
     {
-        string toDoList = await response.Content.ReadFromJsonAsync<string>();
-        return Results.Ok(toDoList);
+        HttpResponseMessage response = 
+            await httpClient.GetAsync(requestEndpoint);
+        try
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                string toDoList = 
+                    await response.Content.ReadFromJsonAsync<string>();
+                return Results.Ok(toDoList);
+            }
+        }
+        catch (Exception ex)
+        { }
     }
+
     return Results.Problem("Coś poszło nie tak");
 
 });

@@ -10,12 +10,11 @@ Console.WriteLine("\r\nWciśnij 'a' lub 'A' aby odwołać operacje...");
 Console.ResetColor();
 
 
-//is not preserving the synchronization context
+//is not preserving the synchronization context?
 Task.Factory.StartNew(async () => await ExecuteTask(cancellationToken));
 //await ExecuteTask(cancellationToken);
 
 //Wyślij token wycofania w wątku UI
-
 char ch = ' ';
 do
 {
@@ -60,10 +59,10 @@ static async Task ExecuteTask(CancellationToken cancellationToken)
             (context, timeSpan, task) => 
             Tools.ConsoleWriteTimeoutException(context, timeSpan, task));
 
-    //Combine the two (or more) policies
+    //Połącz dwie polityki
     var policyWrap = Policy.WrapAsync(retryPolicy, timeOutPolicy);
 
-    //Execute the transient task(s)
+    //Wykonajny jakieś zadanie w tle
     await policyWrap.ExecuteAsync(async (context, token) =>
     {
         Console.WriteLine("\r\nWykonywanie zadania...");
@@ -89,7 +88,9 @@ public static class Tools
     {
         var action = context != null ? context.First().Key : "nieznana metoda";
         var actionDescription = context != null ? context.First().Value : "nieznany opis";
-        var msg = $"Próba numer : ({retryCount}) --czego-> {action} ({actionDescription}) : {exception.Message}";
+        var msg = 
+            $"Próba numer : ({retryCount}) --czego-> {action} " +
+            $"({actionDescription}) : {exception.Message}";
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(msg);
         Console.ResetColor();
@@ -134,7 +135,8 @@ public static class Tools
         if (ct.IsCancellationRequested == true)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Task został anulowany zanim się rozpoczął. Prawodpobonie przez Ciebie");
+            Console.WriteLine
+                ("Task został anulowany zanim się rozpoczął. Prawodpobonie przez Ciebie");
             Console.ResetColor();
             ct.ThrowIfCancellationRequested();
         }
@@ -145,11 +147,13 @@ public static class Tools
         if (ct.IsCancellationRequested == true)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Task został anulowany w drugime etapie. Prawodpobonie przez Ciebie");
+            Console.WriteLine
+                ("Task został anulowany w drugime etapie. Prawodpobonie przez Ciebie");
             Console.ResetColor();
             ct.ThrowIfCancellationRequested();
         }
 
+        //Losowo wygenerowane
         Number++;
         if (Number <= 4)
         {
@@ -162,14 +166,15 @@ public static class Tools
         if (ct.IsCancellationRequested == true)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Task został anulowany w trzecim etapie! Zapewne operacja trwała zbyt długo");
+            Console.WriteLine
+                ("Task został anulowany w trzecim etapie! Zapewne operacja trwała zbyt długo");
             Console.ResetColor();
             ct.ThrowIfCancellationRequested();
         }
  
         if (Number <= 4)
         {
-            //Throw an error to see the retry mechanism
+            //Wyrzuć błąd aby zobaczyć działanie polityki Retry
             throw new Exception("500 SeverNullErrorReference");
         }
 

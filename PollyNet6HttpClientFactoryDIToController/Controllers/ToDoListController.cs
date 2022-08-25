@@ -15,7 +15,8 @@ namespace PollyNet6HttpClientFactoryDIToController.Controllers
             await Task.Delay(100);
             _requestCount++;
 
-            if (_requestCount % 4 == 0) // only one of out four requests will succeed
+            if (_requestCount % 4 == 0) 
+            // tylko jedno na cztery zapytań wykonają się poprawnie
             {
                 if (id == 1)
                     return Ok("Zrobić zupę");
