@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyNet6HttpClientFactoryD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TryingLoopsNet6MinimalApi", "TryingLoopsNet6MinimalApi\TryingLoopsNet6MinimalApi.csproj", "{4D127D12-2D21-45AD-826D-B97783A06231}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zPollyNet6RateLimitDemo", "PollyNet6RateLimit\zPollyNet6RateLimitDemo.csproj", "{B835E01F-A699-4313-8CC1-D8C21A982012}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zPollyConsoleRateLimitDemo", "zPollyConsoleRateLimitDemo\zPollyConsoleRateLimitDemo.csproj", "{59AD7719-B909-429F-B7CC-0963AFE7706D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{4D127D12-2D21-45AD-826D-B97783A06231}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D127D12-2D21-45AD-826D-B97783A06231}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D127D12-2D21-45AD-826D-B97783A06231}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B835E01F-A699-4313-8CC1-D8C21A982012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B835E01F-A699-4313-8CC1-D8C21A982012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B835E01F-A699-4313-8CC1-D8C21A982012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B835E01F-A699-4313-8CC1-D8C21A982012}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59AD7719-B909-429F-B7CC-0963AFE7706D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59AD7719-B909-429F-B7CC-0963AFE7706D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59AD7719-B909-429F-B7CC-0963AFE7706D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59AD7719-B909-429F-B7CC-0963AFE7706D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

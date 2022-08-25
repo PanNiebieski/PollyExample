@@ -9,6 +9,7 @@ builder.Services.AddHttpClient("DaysApi", client =>
     client.DefaultRequestHeaders.Add("Accept", "application/json");
 });
 
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -56,7 +57,8 @@ app.MapGet("/Day/{id}", async (int id, IHttpClientFactory httpClientFactory) =>
             }
         }
         catch (Exception ex)
-        { }
+        { 
+        }
     }
 
     return Results.Problem("Coś poszło nie tak");
@@ -64,3 +66,6 @@ app.MapGet("/Day/{id}", async (int id, IHttpClientFactory httpClientFactory) =>
 });
 
 app.Run();
+
+
+

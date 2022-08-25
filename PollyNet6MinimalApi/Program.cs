@@ -1,16 +1,20 @@
 ﻿using Polly;
 
-var builder = WebApplication.CreateBuilder(args);
 
+var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var retryPolicy = 
+    Policy.HandleResult<HttpResponseMessage>
+    (r => !r.IsSuccessStatusCode).RetryAsync(3);
+
 
 builder.Services.AddHttpClient("DaysApi", client =>
 {
     client.BaseAddress = new Uri("https://localhost:7010/");
     client.DefaultRequestHeaders.Add("Accept", "application/json");
-}).AddPolicyHandler(Policy.HandleResult<HttpResponseMessage>
- (r => !r.IsSuccessStatusCode).RetryAsync(3));
+}).AddPolicyHandler(retryPolicy);
 
 var app = builder.Build();
 
@@ -35,6 +39,7 @@ app.MapGet("/todolist/{id}", (int id) =>
             return Results.Ok("Zrobić podcast");
     }
 
+
     System.Console.WriteLine($"{_requestCount} Coś poszło nie tak");
     return Results.Problem("Something went wrong");
 });
@@ -57,3 +62,21 @@ app.MapGet("/Day/{id}", async (int id, IHttpClientFactory httpClientFactory) =>
 });
 
 app.Run();
+
+
+
+//int RateLimitRetryCount = 2;
+//IAsyncPolicy<HttpResponseMessage> ratePolicy = Policy
+//    .RateLimitAsync(RateLimitRetryCount, TimeSpan.FromSeconds(5), RateLimitRetryCount,
+//        (retryAfter, context) =>
+//        {
+//            var response = new HttpResponseMessage(System.Net.HttpStatusCode.TooManyRequests);
+//            response.Headers.Add("Retry-After", retryAfter.TotalSeconds.ToString());
+//            return response;
+//        });
+
+////Połącz dwie polityki
+//var policyWrap = Policy.WrapAsync(retryPolicy, ratePolicy);
+
+
+
