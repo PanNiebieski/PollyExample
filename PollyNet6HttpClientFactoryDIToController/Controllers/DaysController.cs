@@ -22,7 +22,8 @@ namespace PollyNet6HttpClientFactoryDIToController.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                string toDoList = await response.Content.ReadFromJsonAsync<string>();
+                string toDoList = await response.Content.
+                    ReadFromJsonAsync<string>();
                 return Ok(toDoList);
             }
 

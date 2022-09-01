@@ -37,7 +37,8 @@ app.MapGet("/todolist/{id}", (int id) =>
     return Results.Problem("Something went wrong");
 });
 
-app.MapGet("/Day/{id}", async (int id, IHttpClientFactory httpClientFactory) =>
+app.MapGet("/Day/{id}", async (int id,
+    IHttpClientFactory httpClientFactory) =>
 {
     var httpClient = httpClientFactory.CreateClient("DaysApi");
 
@@ -47,17 +48,13 @@ app.MapGet("/Day/{id}", async (int id, IHttpClientFactory httpClientFactory) =>
     {
         HttpResponseMessage response = 
             await httpClient.GetAsync(requestEndpoint);
-        try
+
+        if (response.IsSuccessStatusCode)
         {
-            if (response.IsSuccessStatusCode)
-            {
-                string toDoList = 
-                    await response.Content.ReadFromJsonAsync<string>();
-                return Results.Ok(toDoList);
-            }
-        }
-        catch (Exception ex)
-        { 
+            string? toDoList = 
+                await response.Content.
+                ReadFromJsonAsync<string>();
+            return Results.Ok(toDoList);
         }
     }
 

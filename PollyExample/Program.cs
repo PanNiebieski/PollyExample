@@ -4,6 +4,8 @@ using Polly;
 var cancellationTokenSource = new CancellationTokenSource();
 var cancellationToken = cancellationTokenSource.Token;
 
+Console.ReadKey();
+
 Console.ForegroundColor = ConsoleColor.Cyan;
 Console.WriteLine("Oto kombinacja polityki Retry i TimeOut");
 Console.WriteLine("\r\nWciśnij 'a' lub 'A' aby odwołać operacje..."); 
@@ -23,7 +25,8 @@ do
     {
         cancellationTokenSource.Cancel();
         Console.ForegroundColor = ConsoleColor.DarkGreen;
-        Console.WriteLine("\nWysłałeś prośbę anulowania i zaraz zostanie ona zrealizowana");
+        Console.WriteLine("\nWysłałeś prośbę anulowania i " +
+            "zaraz zostanie ona zrealizowana");
         Console.ResetColor();
     }
 
@@ -49,7 +52,8 @@ static async Task ExecuteTask(CancellationToken cancellationToken)
             maxRetryAttempts,
             i => pauseBetweenFailures,
             (exception, timeSpan, retryCount, context) =>
-            Tools.ConsoleWriteRetryException(exception, timeSpan, retryCount, context));
+            Tools.ConsoleWriteRetryException
+            (exception, timeSpan, retryCount, context));
 
     //TimeOut Policy
     var timeOutPolicy = Policy
@@ -83,7 +87,8 @@ static async Task ExecuteTask(CancellationToken cancellationToken)
 
 public static class Tools
 {
-    public static void ConsoleWriteRetryException(Exception exception, TimeSpan timeSpan,
+    public static void ConsoleWriteRetryException(Exception exception,
+        TimeSpan timeSpan,
         int retryCount, Context context)
     {
         var action = context != null ? context.First().Key : "nieznana metoda";

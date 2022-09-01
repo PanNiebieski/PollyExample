@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Polly;
-using Polly.RateLimit;
-using Polly.Retry;
-using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
@@ -12,11 +7,14 @@ builder.Services.AddSwaggerGen();
 
 int RateLimitRetryCount = 10;
 IAsyncPolicy<HttpResponseMessage> ratePolicy = Policy
-    .RateLimitAsync(RateLimitRetryCount, TimeSpan.FromSeconds(5), RateLimitRetryCount,
+    .RateLimitAsync(RateLimitRetryCount, TimeSpan.FromSeconds(5),
+    RateLimitRetryCount,
         (retryAfter, context) =>
         {
-            var response = new HttpResponseMessage(System.Net.HttpStatusCode.TooManyRequests);
-            response.Headers.Add("Retry-After", retryAfter.Milliseconds.ToString().Replace(',','_'));
+            var response = new HttpResponseMessage
+            (System.Net.HttpStatusCode.TooManyRequests);
+            response.Headers.Add("Retry-After", 
+                retryAfter.Milliseconds.ToString().Replace(',','_'));
             return response;
         });
 
@@ -39,27 +37,12 @@ if (app.Environment.IsDevelopment())
 app.MapGet("/TextSearch/{query}", async 
     (HttpContext context,int query) =>
 {
-    //var rateLimit = Policy.RateLimitAsync(3, TimeSpan.FromMinutes(5), 1);
-
-    //try
-    //{
         var result = await TextSearchAsync(query);
 
         var json = JsonConvert.SerializeObject(result);
 
         context.Response.ContentType = "application/json";
         await context.Response.WriteAsync(json);
-    //}
-    //catch (RateLimitRejectedException ex)
-    //{
-    //    string retryAfter = DateTimeOffset.UtcNow
-    //        .Add(ex.RetryAfter)
-    //        .ToUnixTimeSeconds()
-    //        .ToString(CultureInfo.InvariantCulture);
-
-    //    context.Response.StatusCode = 429;
-    //    context.Response.Headers["Retry-After"] = retryAfter;
-    //}
 });
 
 async Task<TextResult> TextSearchAsync(int query)
@@ -68,7 +51,8 @@ async Task<TextResult> TextSearchAsync(int query)
     return new TextResult() { Value = "-- DONE -- QueryId : " + query };
 }
 
-app.MapGet("/TestSequentially/{id}", async (int id, IHttpClientFactory httpClientFactory) =>
+app.MapGet("/TestSequentially/{id}", async (int id, 
+    IHttpClientFactory httpClientFactory) =>
 {
     var httpClient = httpClientFactory.CreateClient("TextAPI");
     List<string> jsonresult = new List<string>();
@@ -98,7 +82,8 @@ app.MapGet("/TestSequentially/{id}", async (int id, IHttpClientFactory httpClien
     return Results.Ok(jsonresult);
 });
 
-app.MapGet("/TestConcurrently/{id}", async (int id, IHttpClientFactory httpClientFactory) =>
+app.MapGet("/TestConcurrently/{id}", async (int id, 
+    IHttpClientFactory httpClientFactory) =>
 {
     var httpClient = httpClientFactory.CreateClient("TextAPI");
     List<int> ids = new List<int>();

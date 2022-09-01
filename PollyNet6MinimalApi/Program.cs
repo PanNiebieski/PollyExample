@@ -44,17 +44,20 @@ app.MapGet("/todolist/{id}", (int id) =>
     return Results.Problem("Something went wrong");
 });
 
-app.MapGet("/Day/{id}", async (int id, IHttpClientFactory httpClientFactory) =>
+app.MapGet("/Day/{id}", async (int id, 
+    IHttpClientFactory httpClientFactory) =>
 {
     var httpClient = httpClientFactory.CreateClient("DaysApi");
 
     string requestEndpoint = $"todolist/{id}";
 
-    HttpResponseMessage response = await httpClient.GetAsync(requestEndpoint);
+    HttpResponseMessage response = await httpClient.
+    GetAsync(requestEndpoint);
 
     if (response.IsSuccessStatusCode)
     {
-        string toDoList = await response.Content.ReadFromJsonAsync<string>();
+        string? toDoList = await response.Content.
+        ReadFromJsonAsync<string>();
         return Results.Ok(toDoList);
     }
     return Results.Problem("Coś poszło nie tak");
@@ -63,20 +66,6 @@ app.MapGet("/Day/{id}", async (int id, IHttpClientFactory httpClientFactory) =>
 
 app.Run();
 
-
-
-//int RateLimitRetryCount = 2;
-//IAsyncPolicy<HttpResponseMessage> ratePolicy = Policy
-//    .RateLimitAsync(RateLimitRetryCount, TimeSpan.FromSeconds(5), RateLimitRetryCount,
-//        (retryAfter, context) =>
-//        {
-//            var response = new HttpResponseMessage(System.Net.HttpStatusCode.TooManyRequests);
-//            response.Headers.Add("Retry-After", retryAfter.TotalSeconds.ToString());
-//            return response;
-//        });
-
-////Połącz dwie polityki
-//var policyWrap = Policy.WrapAsync(retryPolicy, ratePolicy);
 
 
 

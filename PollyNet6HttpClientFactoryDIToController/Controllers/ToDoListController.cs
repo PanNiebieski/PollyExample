@@ -24,7 +24,8 @@ namespace PollyNet6HttpClientFactoryDIToController.Controllers
                     return Ok("Zrobić podcast");
             }
             System.Console.WriteLine($"{_requestCount} Coś poszło nie tak");
-            return StatusCode((int)HttpStatusCode.InternalServerError, "Coś poszło nie tak");
+            return StatusCode((int)HttpStatusCode.InternalServerError, 
+                "Coś poszło nie tak");
         }
     }
 }

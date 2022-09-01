@@ -3,17 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyConsoleExample", "PollyExample\PollyConsoleExample.csproj", "{2B9B835D-8314-40FB-89D7-5DEFD4C189A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollyConsoleExample", "PollyExample\PollyConsoleExample.csproj", "{2B9B835D-8314-40FB-89D7-5DEFD4C189A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyNet6MinimalApi", "PollyNet6MinimalApi\PollyNet6MinimalApi.csproj", "{F7DA0503-B722-4BFB-9423-7ECE77AFDBE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollyNet6MinimalApi", "PollyNet6MinimalApi\PollyNet6MinimalApi.csproj", "{F7DA0503-B722-4BFB-9423-7ECE77AFDBE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyNet6HttpClientFactoryDIToController", "PollyNet6HttpClientFactoryDIToController\PollyNet6HttpClientFactoryDIToController.csproj", "{BC503BC3-46EC-4F38-B21D-458B4B7F7277}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollyNet6HttpClientFactoryDIToController", "PollyNet6HttpClientFactoryDIToController\PollyNet6HttpClientFactoryDIToController.csproj", "{BC503BC3-46EC-4F38-B21D-458B4B7F7277}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TryingLoopsNet6MinimalApi", "TryingLoopsNet6MinimalApi\TryingLoopsNet6MinimalApi.csproj", "{4D127D12-2D21-45AD-826D-B97783A06231}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TryingLoopsNet6MinimalApi", "TryingLoopsNet6MinimalApi\TryingLoopsNet6MinimalApi.csproj", "{4D127D12-2D21-45AD-826D-B97783A06231}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zPollyNet6RateLimitDemo", "PollyNet6RateLimit\zPollyNet6RateLimitDemo.csproj", "{B835E01F-A699-4313-8CC1-D8C21A982012}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zPollyNet6RateLimitDemo", "PollyNet6RateLimit\zPollyNet6RateLimitDemo.csproj", "{B835E01F-A699-4313-8CC1-D8C21A982012}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zPollyConsoleRateLimitDemo", "zPollyConsoleRateLimitDemo\zPollyConsoleRateLimitDemo.csproj", "{59AD7719-B909-429F-B7CC-0963AFE7706D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zPollyConsoleRateLimitDemo", "zPollyConsoleRateLimitDemo\zPollyConsoleRateLimitDemo.csproj", "{59AD7719-B909-429F-B7CC-0963AFE7706D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleExamples", "ConsoleExamples", "{1C203375-7A2D-4EFB-8338-73E303CE39CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ASPNETCoreExamples", "ASPNETCoreExamples", "{7822D9EA-5DAE-44FF-BDE1-88465C0FB5D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +52,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2B9B835D-8314-40FB-89D7-5DEFD4C189A8} = {1C203375-7A2D-4EFB-8338-73E303CE39CA}
+		{F7DA0503-B722-4BFB-9423-7ECE77AFDBE1} = {7822D9EA-5DAE-44FF-BDE1-88465C0FB5D5}
+		{BC503BC3-46EC-4F38-B21D-458B4B7F7277} = {7822D9EA-5DAE-44FF-BDE1-88465C0FB5D5}
+		{B835E01F-A699-4313-8CC1-D8C21A982012} = {7822D9EA-5DAE-44FF-BDE1-88465C0FB5D5}
+		{59AD7719-B909-429F-B7CC-0963AFE7706D} = {1C203375-7A2D-4EFB-8338-73E303CE39CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05026A3D-6100-420D-8F2B-C2041AAB4BCC}
